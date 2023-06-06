@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rjgc.mall.mapper.GoodsMapper">
+    <resultMap id="BaseResultMap" type="rjgc.mall.entity.Goods">
+        <id column="Id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="REAL"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="supply_id" property="supplyId" jdbcType="INTEGER"/>
+        <result column="supply_time" property="supplyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="rjgc.mall.entity.Goods" extends="BaseResultMap">
+        <result column="imgUrl" property="imgurl" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id
+        , name, description, price, type, status, supply_id, supply_time
+    </sql>
+    <sql id="Blob_Column_List">
+        imgUrl
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from goods
+        where Id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from goods
+        where Id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="rjgc.mall.entity.Goods">
+        insert into goods (Id, name, description,
+                           price, type, status, supply_id,
+                           supply_time, imgUrl)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+                #{price,jdbcType=REAL}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+                #{supplyId,jdbcType=INTEGER},
+                #{supplyTime,jdbcType=TIMESTAMP}, #{imgurl,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="rjgc.mall.entity.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="supplyId != null">
+                supply_id,
+            </if>
+            <if test="supplyTime != null">
+                supply_time,
+            </if>
+            <if test="imgurl != null">
+                imgUrl,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=REAL},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="supplyId != null">
+                #{supplyId,jdbcType=INTEGER},
+            </if>
+            <if test="supplyTime != null">
+                #{supplyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="imgurl != null">
+                #{imgurl,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="rjgc.mall.entity.Goods">
+        update goods
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=REAL},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="supplyId != null">
+                supply_id = #{supplyId,jdbcType=INTEGER},
+            </if>
+            <if test="supplyTime != null">
+                supply_time = #{supplyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="imgurl != null">
+                imgUrl = #{imgurl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="rjgc.mall.entity.Goods">
+        update goods
+        set name        = #{name,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            price       = #{price,jdbcType=REAL},
+            type        = #{type,jdbcType=VARCHAR},
+            status      = #{status,jdbcType=INTEGER},
+            supply_id   = #{supplyId,jdbcType=INTEGER},
+            supply_time = #{supplyTime,jdbcType=TIMESTAMP},
+            imgUrl      = #{imgurl,jdbcType=LONGVARCHAR}
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="rjgc.mall.entity.Goods">
+        update goods
+        set name        = #{name,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            price       = #{price,jdbcType=REAL},
+            type        = #{type,jdbcType=VARCHAR},
+            status      = #{status,jdbcType=INTEGER},
+            supply_id   = #{supplyId,jdbcType=INTEGER},
+            supply_time = #{supplyTime,jdbcType=TIMESTAMP}
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectBysearchQuery" resultMap="BaseResultMap">
+        select *
+        from goods
+        where name like "%"#{searchQuery}"%" and status != 3
+    </select>
+    <update id="feezeGoods" parameterType="java.lang.Integer">
+        update goods
+        set status = 2
+        where id = #{goodsId}
+    </update>
+    <update id="removeGoods" parameterType="java.lang.Integer">
+        update goods
+        set status = 3
+        where id = #{goodsId}
+    </update>
+    <update id="putawatGoods" parameterType="java.lang.Integer">
+        update goods
+        set status = 0
+        where id = #{goodsId}
+    </update>
+    <select id="findGoodsStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select status
+        from goods
+        where id = #{goodsId}
+    </select>
+    <select id="viewGoodsList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from goods
+        where supply_id = #{sellerId}
+    </select>
+    <select id="getGoodsBySellerId" parameterType="java.lang.Integer">
+        select *
+        from goods
+        where supply_id = #{sellerId}
+    </select>
+    <select id="checkGoodsExists" resultType="java.lang.Integer">
+        select count(*)
+        from goods
+        where supply_id = #{sellerId}
+          and status != 3
+    </select>
+    <update id="chooseUser">
+        update goods
+        set status = 1
+        where id = #{id}
+    </update>
+    <select id="checkgood" resultType="java.lang.Integer">
+        select count(*)
+        from goods
+        where status = 1
+    </select>
+    <select id="selectGoods" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from goods
+        where supply_id = #{sellerId}
+          and status != 3
+    </select>
+</mapper>

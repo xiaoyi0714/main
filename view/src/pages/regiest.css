@@ -1,0 +1,65 @@
+.title{
+    position: absolute;
+    margin-left: 38%;
+    top: 100px;
+}
+.class1{
+    display: inline-flex;
+    position: absolute;
+    top: 200px;
+    margin-left: 35%;
+    text-align: center;
+    font-family: fantasy;
+}
+.class2{
+    display: inline-flex;
+    position: absolute;
+    top: 245px;
+    margin-left:35%;
+    text-align: center;
+    font-family: fantasy;
+}
+.class3{
+    display: inline-flex;
+    position: absolute;
+    top: 290px;
+    margin-left: 35%;
+    text-align: center;
+    font-family: fantasy;
+}
+.class4{
+    display: inline-flex;
+    position: absolute;
+    margin-left: 54%;
+    top: 380px;
+    width: 60px;
+    height: 25px;
+    background-image: url(../assets/button-bg.jpg);
+    border-radius: 5px;
+}
+.text1{
+    height: 25px;
+    width: 300px;
+}
+.class5{
+    position: absolute;
+    top: 335px;
+    margin-left: 33%;
+    text-align: center;
+    font-family: fantasy;
+}
+.tishi{
+    float: left;
+    color: rgb(163, 156, 146);
+    font-size: 12px;
+    align-self:center;
+}
+.error{
+    color: red;
+}
+.t1{
+    position: absolute;
+    top: 200px;
+    left: 540px;
+    font-size:30px;
+}

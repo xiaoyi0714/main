@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rjgc.mall.mapper.TradeActionMapper">
+    <resultMap id="BaseResultMap" type="rjgc.mall.entity.TradeAction">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime"/>
+        <result column="trade_time" jdbcType="VARCHAR" property="tradeTime"/>
+        <result column="result" jdbcType="INTEGER" property="result"/>
+        <result column="trade_place" jdbcType="VARCHAR" property="tradePlace"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , goods_id, user_id, buy_time, trade_time, result, trade_place
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from trade_action
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from trade_action
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="rjgc.mall.entity.TradeAction">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into trade_action (id, goods_id, user_id,
+        buy_time, trade_time, result,
+        trade_place)
+        values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+        #{buyTime,jdbcType=TIMESTAMP}, #{tradeTime,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER},
+        #{tradePlace,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="rjgc.mall.entity.TradeAction">
+        insert into trade_action
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="buyTime != null">
+                buy_time,
+            </if>
+            <if test="tradeTime != null">
+                trade_time,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="tradePlace != null">
+                trade_place,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="buyTime != null">
+                #{buyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tradeTime != null">
+                #{tradeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=INTEGER},
+            </if>
+            <if test="tradePlace != null">
+                #{tradePlace,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="rjgc.mall.entity.TradeAction">
+        update trade_action
+        <set>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="buyTime != null">
+                buy_time = #{buyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tradeTime != null">
+                trade_time = #{tradeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=INTEGER},
+            </if>
+            <if test="tradePlace != null">
+                trade_place = #{tradePlace,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="rjgc.mall.entity.TradeAction">
+        update trade_action
+        set goods_id    = #{goodsId,jdbcType=INTEGER},
+            user_id     = #{userId,jdbcType=INTEGER},
+            buy_time    = #{buyTime,jdbcType=TIMESTAMP},
+            trade_time  = #{tradeTime,jdbcType=VARCHAR},
+            result      = #{result,jdbcType=INTEGER},
+            trade_place = #{tradePlace,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="tradeSuccess" parameterType="java.lang.Integer">
+        update trade_action
+        set result = 1
+        where goods_id = #{goodsId} and result = 2
+    </update>
+    <update id="tradeFail" parameterType="java.lang.Integer">
+        update trade_action
+        set result = 0
+        where goods_id = #{goodsId} and result = 2
+    </update>
+    <select id="trading" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select user_id
+        from trade_action
+        where result = 2
+          and goods_id = #{id}
+    </select>
+    <select id="getStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select result
+        from trade_action
+        where id = #{id}
+    </select>
+    <select id="getUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select user_id
+        from trade_action
+        where id = #{id}
+    </select>
+    <select id="getGoodsId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select goods_id
+        from trade_action
+        where id = #{id}
+    </select>
+    <select id="getGoodsId2" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select user_id
+        from trade_action
+        where goods_id = #{gooosId}
+          and result = 2
+    </select>
+    <select id="getActopm" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from trade_action
+        where goods_id = #{gooosId}
+          and result = 2
+    </select>
+    <select id="getActionId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select id
+        from trade_action
+        where goods_id = #{gooosId}
+          and result = 2
+    </select>
+    <select id="intendingUser" resultMap="BaseResultMap">
+        select *
+        from trade_action
+        where result = 3 and goods_id=#{goods_id,jdbcType=INTEGER}
+    </select>
+    <select id="getSuccessTrade" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from trade_action
+        where (result = 1 or result = 2) and goods_id=#{goodsId}
+    </select>
+    <select id="getTradecount"  resultType="java.lang.Integer">
+        select count(*)
+        from trade_action
+        where goods_id = #{goodsId}
+    </select>
+</mapper>
